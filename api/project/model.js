@@ -1,1 +1,7 @@
-// build your `Project` model here
+function getProjects() {
+    return Promise.resolve('hello from GETprojects')
+}
+
+module.exports = {
+    getProjects,
+}
