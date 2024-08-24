@@ -16,6 +16,20 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+router.post('/', (req, res, next) => {
+    const project = req.body
+    Projects.addNewProj(project)
+    .then(project => {
+        if (project.project_completed === 0) {
+            project.project_completed = false
+        } else {
+            project.project_completed = true
+        }
+        res.status(201).json(project)
+    })
+    .catch(next)
+})
+
 router.use((err, req, res, next) => { //eslint-disable-line
     res.status(500).json({
         customMessage: 'Chaos strikes again in Project/Router',

@@ -5,6 +5,16 @@ async function getProjects() {
     return projectRows
 }
 
+async function addNewProj(project) {
+    return db('projects').insert(project)
+    .then(([project_id]) => {
+        return db('projects')
+        .where('project_id', project_id)
+        .first()
+    })
+}
+
 module.exports = {
     getProjects,
+    addNewProj,
 }
