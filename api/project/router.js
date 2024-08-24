@@ -4,6 +4,13 @@ const Projects = require('./model')
 router.get('/', (req, res, next) => {
     Projects.getProjects()
     .then(projects => {
+        projects.forEach(project => {
+            if (project.project_completed === 0) {
+                project.project_completed = false
+            } else if (project.project_completed === 1) {
+                project.project_completed = true
+            }
+        })
         res.status(200).json(projects)
     })
     .catch(next)
