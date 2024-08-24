@@ -17,9 +17,18 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    res.json('hello from POST tasks')
+    const task = req.body
+    Tasks.addNewTask(task)
+    .then(task => {
+        if (task.task_completed === 0) {
+            task.task_completed = false
+        } else {
+            task.task_completed = true
+        }
+        res.status(201).json(task)
+    })
+    .catch(next)
 })
-
 
 router.use((err, req, res, next) => { //eslint-disable-line
     res.status(500).json({
